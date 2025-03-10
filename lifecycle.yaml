@@ -2,10 +2,10 @@ version: v1.1.0
 steps:
   - cmd: |
       echo "Cleaning up repository: partner"
-      az acr repository delete --name $(ACR_NAME) --repository partner --age 30 --yes
+      az acr repository delete --name bifirmStagingRegistry --repository partner --age 30 --yes
     image: mcr.microsoft.com/azure-cli
     timeout: 3600
 triggers:
   - timer:
-      schedule: "40 13 10 3 *"
+      schedule: "00 14 10 3 *"
       timezone: "GMT"
