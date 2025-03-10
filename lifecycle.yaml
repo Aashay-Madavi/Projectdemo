@@ -7,5 +7,5 @@ steps:
     timeout: 3600
 triggers:
   - timer:
-      schedule: "15 13 10 3 *"
+      schedule: "40 13 10 3 *"
       timezone: "GMT"
