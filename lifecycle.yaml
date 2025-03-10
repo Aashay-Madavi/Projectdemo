@@ -1,0 +1,11 @@
+version: v1.1.0
+steps:
+  - cmd: |
+      echo "Cleaning up repository: partner"
+      az acr repository delete --name $(ACR_NAME) --repository partner --age 30 --yes
+    image: mcr.microsoft.com/azure-cli
+    timeout: 3600
+triggers:
+  - timer:
+      schedule: "0 17 10 3 *"
+      timezone: "Asia/Kolkata"
