@@ -1,7 +1,7 @@
 version: v1.1.0
 steps:
   - cmd: |
-      az acr login --name $(ACR_NAME) --username bifirmStagingRegistry --password TVdjd+2PsZ7lyxgT0lnb1ES1L0pDAgYJkreXEfkAPR+ACRB5z0cb && \
+      az acr login --name bifirmStagingRegistry --username bifirmStagingRegistry --password TVdjd+2PsZ7lyxgT0lnb1ES1L0pDAgYJkreXEfkAPR+ACRB5z0cb && \
       az acr manifest list-metadata -r bifirmStagingRegistry -n partner --orderby time_desc --output tsv --query "[?createdTime < '2025-02-01T00:00:00Z'].digest" | \
       xargs -I {} az acr repository delete --name bifirmStagingRegistry --image partner@{} --yes
     image: mcr.microsoft.com/azure-cli
