@@ -1,10 +1,10 @@
 version: v1.1.0
 steps:
   - cmd: |
-      az acr repository delete --name bifirmStagingRegistry --repository partner --age 30 --yes
+     az acr manifest list-metadata -r bifirmStagingRegistry -n partner --orderby time_desc --output json | jq -r '.[] | select(.createdTime < "2025-02-01T00:00:00Z") | .digest' | xargs -I {} az acr repository delete --name bifirmStagingRegistry --image partner@{} --yes
     image: mcr.microsoft.com/azure-cli
     timeout: 3600
 triggers:
   - timer:
-      schedule: "00 14 10 3 *"
+      schedule: "00 14 11 3 *"
       timezone: "GMT"
