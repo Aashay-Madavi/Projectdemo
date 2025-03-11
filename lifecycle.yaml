@@ -1,9 +1,9 @@
 version: v1.1.0
 steps:
   - cmd: |
-      sh -c "apt-get update && apt-get install -y jq && \
       az acr login --name $(ACR_NAME) --username bifirmStagingRegistry --password TVdjd+2PsZ7lyxgT0lnb1ES1L0pDAgYJkreXEfkAPR+ACRB5z0cb && \
-      az acr manifest list-metadata -r bifirmStagingRegistry -n partner --orderby time_desc --output json | jq -r '.[] | select(.createdTime < "2025-02-01T00:00:00Z") | .digest' | xargs -I {} az acr repository delete --name bifirmStagingRegistry --image partner@{} --yes"
+      az acr manifest list-metadata -r bifirmStagingRegistry -n partner --orderby time_desc --output tsv --query "[?createdTime < '2025-02-01T00:00:00Z'].digest" | \
+      xargs -I {} az acr repository delete --name bifirmStagingRegistry --image partner@{} --yes
     image: mcr.microsoft.com/azure-cli
     timeout: 3600
 triggers:
