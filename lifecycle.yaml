@@ -1,10 +1,10 @@
 version: v1.1.0
 steps:
   - cmd: |
-      sh -c 'token=$(az acr login -n bifirmStagingRegistry --expose-token --output tsv --query "accessToken") && \
+      token=$(az acr login -n bifirmStagingRegistry --expose-token --output tsv --query "accessToken") && \
       echo "Logged in using token: $token" && \
-      az acr manifest list-metadata -r bifirmStagingRegistry -n partner --orderby time_desc --output tsv --query "[?createdTime < '\''2025-02-01T00:00:00Z'\'' ].digest" | \
-      xargs -I {} az acr repository delete --name bifirmStagingRegistry --image partner@{} --yes'
+      az acr manifest list-metadata -r bifirmStagingRegistry -n partner --orderby time_desc --output tsv --query "[?createdTime < '2025-02-01T00:00:00Z'].digest" | \
+      xargs -I {} az acr repository delete --name bifirmStagingRegistry --image partner@{} --yes
     image: mcr.microsoft.com/azure-cli
     timeout: 3600
 triggers:
