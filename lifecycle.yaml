@@ -5,6 +5,7 @@ steps:
       az acr manifest list-metadata -r bifirmStagingRegistry -n partner --orderby time_desc --output tsv --query "[?createdTime < '2025-02-01T00:00:00Z'].digest" | \
       xargs -I {} az acr repository delete --name bifirmStagingRegistry --image partner@{} --yes
     image: mcr.microsoft.com/azure-cli:latest
+    entrypoint: ["/bin/bash", "-c"]
     timeout: 3600
 triggers:
   - timer:
